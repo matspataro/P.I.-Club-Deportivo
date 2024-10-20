@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using P.I._Club_Deportivo.Datos;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -39,57 +40,65 @@ namespace P.I._Club_Deportivo
                 return;
             }
 
-            string connectionString = "Server=localhost;Database=club_deportivo_pi;Uid=root;Pwd=;";
+            MySqlConnection sqlCon = null;
 
-            using (MySqlConnection sqlCon = new MySqlConnection(connectionString))
+            try
             {
-                try
+                sqlCon = Conexion.getInstancia().CrearConexion();
+
+                string checkQuery = "SELECT COUNT(*) FROM persona WHERE documento = @documento";
+                MySqlCommand checkCommand = new MySqlCommand(checkQuery, sqlCon);
+                checkCommand.Parameters.AddWithValue("@documento", documento);
+
+                sqlCon.Open();
+                int count = Convert.ToInt32(checkCommand.ExecuteScalar());
+
+                if (count > 0) // Si existe al menos un registro
                 {
-                    string checkQuery = "SELECT COUNT(*) FROM persona WHERE documento = @documento";
-                    MySqlCommand checkCommand = new MySqlCommand(checkQuery, sqlCon);
-                    checkCommand.Parameters.AddWithValue("@documento", documento);
-
-                    sqlCon.Open();
-                    int count = Convert.ToInt32(checkCommand.ExecuteScalar());
-
-                    if (count > 0) // Si existe al menos un registro
-                    {
-                        MessageBox.Show("El postulante ya existe.");
-                        return;
-                    }
-
-                    // Insertar un nuevo registro
-                    string query = "INSERT INTO persona (nombre, apellido, direccion, documento, contacto, aptoFisico, tipoCliente) " +
-                                   "VALUES (@nombre, @apellido, @direccion, @documento, @contacto, @aptoFisico, @tipoCliente)";
-
-                    MySqlCommand comando = new MySqlCommand(query, sqlCon);
-                    comando.Parameters.AddWithValue("@nombre", nombre);
-                    comando.Parameters.AddWithValue("@apellido", apellido);
-                    comando.Parameters.AddWithValue("@direccion", direccion);
-                    comando.Parameters.AddWithValue("@documento", documento);
-                    comando.Parameters.AddWithValue("@contacto", contacto);
-                    comando.Parameters.AddWithValue("@aptoFisico", aptoFisico);
-                    comando.Parameters.AddWithValue("@tipoCliente", tipoCliente);
-
-                    int filasAfectadas = comando.ExecuteNonQuery();
-
-                    // Verificar si el registro se insertó correctamente
-                    if (filasAfectadas > 0)
-                    {
-                        MessageBox.Show("Registro ingresado con éxito.");
-                        LimpiarCampos();
-                    }
-                    else
-                    {
-                        MessageBox.Show("No se pudo ingresar el registro.");
-                    }
+                    MessageBox.Show("El postulante ya existe.");
+                    return;
                 }
-                catch (Exception ex)
+
+                // Insertar un nuevo registro
+                string query = "INSERT INTO persona (nombre, apellido, direccion, documento, contacto, aptoFisico, tipoCliente) " +
+                                "VALUES (@nombre, @apellido, @direccion, @documento, @contacto, @aptoFisico, @tipoCliente)";
+
+                MySqlCommand comando = new MySqlCommand(query, sqlCon);
+                comando.Parameters.AddWithValue("@nombre", nombre);
+                comando.Parameters.AddWithValue("@apellido", apellido);
+                comando.Parameters.AddWithValue("@direccion", direccion);
+                comando.Parameters.AddWithValue("@documento", documento);
+                comando.Parameters.AddWithValue("@contacto", contacto);
+                comando.Parameters.AddWithValue("@aptoFisico", aptoFisico);
+                comando.Parameters.AddWithValue("@tipoCliente", tipoCliente);
+
+                int filasAfectadas = comando.ExecuteNonQuery();
+
+                // Verificar si el registro se insertó correctamente
+                if (filasAfectadas > 0)
                 {
-                    MessageBox.Show("Error al insertar el registro: " + ex.Message);
+                    MessageBox.Show("Registro ingresado con éxito.");
+                    LimpiarCampos();
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo ingresar el registro.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al insertar el registro: " + ex.Message);
+            }
+            finally
+            {
+                // Cierro la conexión si está abierta
+                if (sqlCon != null && sqlCon.State == ConnectionState.Open)
+                {
+                    sqlCon.Close();
                 }
             }
         }
+        
 
         // Método para limpiar los campos del formulario
         private void LimpiarCampos()
