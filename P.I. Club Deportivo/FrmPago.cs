@@ -85,6 +85,7 @@ namespace P.I._Club_Deportivo
                     persona.Contacto = reader["nombre"].ToString();
                     persona.AptoFisico = (bool)reader["aptoFisico"];
                     persona.EstaPago = Convert.ToBoolean(reader["pago"]);
+                    persona.FechaVencimiento = Convert.ToDateTime(reader["fechaVencimiento"]);
                     persona.id = (int)reader["id"];
 
                 }

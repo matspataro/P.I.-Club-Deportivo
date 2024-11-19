@@ -12,14 +12,14 @@ namespace P.I._Club_Deportivo.Datos
         public decimal ImporteCuota { get; set; }
         public DateTime fechaVencimiento { get; set; }
 
-        public Socio()
-        {
-            this.fechaVencimiento = DateTime.Now.AddMonths(1);
-        }
-
         public DateTime CalcularVencimiento()
         {
             return DateTime.Now.AddMonths(1);
+        }
+
+        public bool DebeCuota()
+        {
+            return !EstaPago;
         }
     }
 }

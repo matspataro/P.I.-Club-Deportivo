@@ -65,6 +65,7 @@
             btnCarnet.Text = "EMITIR CARNET";
             toolTipPrincipal.SetToolTip(btnCarnet, "Emisión de carnets para Socios");
             btnCarnet.UseVisualStyleBackColor = false;
+            btnCarnet.Click += btnCarnet_Click;
             // 
             // btnPago
             // 

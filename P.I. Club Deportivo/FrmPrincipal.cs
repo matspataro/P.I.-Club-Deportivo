@@ -52,5 +52,12 @@ namespace P.I._Club_Deportivo
             pago.Show();
             this.Hide();
         }
+
+        private void btnCarnet_Click(object sender, EventArgs e)
+        {
+            FrmEmitirCarnet frmEmitirCarnet = new FrmEmitirCarnet();
+            frmEmitirCarnet.Show();
+            this.Hide();
+        }
     }
 }

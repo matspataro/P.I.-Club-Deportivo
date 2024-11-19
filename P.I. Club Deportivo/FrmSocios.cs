@@ -14,6 +14,7 @@ namespace P.I._Club_Deportivo
 {
     public partial class FrmSocios : Form
     {
+        bool esInicializado = false;
         public FrmSocios()
         {
             InitializeComponent();
@@ -29,6 +30,8 @@ namespace P.I._Club_Deportivo
             ConfigurarDataGridView();
 
             CargarSociosConCuotaVencidaHoy();
+
+            esInicializado = true;
         }
 
 
@@ -85,7 +88,8 @@ namespace P.I._Club_Deportivo
 
         private void cboListadoOpciones_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ConfigurarDataGridView();
+            if (!esInicializado) return;
+
             switch (cboListadoOpciones.SelectedItem.ToString())
             {
                 case "Todos los socios":
