@@ -1,34 +1,63 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace P.I._Club_Deportivo.Datos
 {
     public abstract class Persona
     {
         // Atributos comunes a todas las personas
-        private string Nombre;
-        private string Apellido;
-        private string Direccion;
-        private string Documento;
-        private string Contacto;
-        private bool AptoFisico;
+        public int id { get; set; }
+        public string Nombre { get; set; }
+        public string Apellido { get; set; }
+        public string Direccion { get; set; }
+        public string Documento { get; set; }
+        public string Contacto { get; set; }
+        public bool AptoFisico { get; set; }
+        public List<Pago> Pagos { get; set; }
+        public bool EstaPago {  get; set; }
+        public DateTime FechaVencimiento { get; set; }
 
-        // Constructor común
-        public Persona(string nombre, string apellido, string direccion, string documento, string contacto, bool aptoFisico)
+
+        public virtual void Pagar(string tipoPago, decimal monto)
         {
-            this.Nombre = nombre;
-            this.Apellido = apellido;
-            this.Direccion = direccion;
-            this.Documento = documento;
-            this.Contacto = contacto;
-            this.AptoFisico = aptoFisico;
+            using (MySqlConnection sqlCon = Conexion.getInstancia().CrearConexion())
+            {
+                string queryUpdate = "UPDATE persona SET pago = @pago WHERE id = @id";
+
+                using (MySqlCommand comando = new MySqlCommand(queryUpdate, sqlCon))
+                {
+                    comando.Parameters.AddWithValue("@pago", true);
+                    comando.Parameters.AddWithValue("@id", this.id);
+                    sqlCon.Open();
+                    comando.ExecuteNonQuery();
+                }
+            }
+
+            RegistrarPago(tipoPago, monto);
         }
 
-        // Método abstracto que puede ser implementado de forma diferente en las clases hijas
-        public abstract decimal CalcularCuota();
+        private void RegistrarPago(string tipoPago, decimal monto)
+        {
+            using (MySqlConnection sqlCon = Conexion.getInstancia().CrearConexion())
+            {
+                string queryInsertPago = "INSERT INTO pago (fecha, tipoPago, monto, personaId) VALUES (@fecha, @tipoPago, @monto, @personaId)";
+
+                using (MySqlCommand comando = new MySqlCommand(queryInsertPago, sqlCon))
+                {
+                    comando.Parameters.AddWithValue("@fecha", DateTime.Now);
+                    comando.Parameters.AddWithValue("@tipoPago", tipoPago);
+                    comando.Parameters.AddWithValue("@monto", monto);
+                    comando.Parameters.AddWithValue("@personaId", this.id);
+                    sqlCon.Open();
+                    comando.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

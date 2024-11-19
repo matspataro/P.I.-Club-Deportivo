@@ -64,7 +64,6 @@ namespace P.I._Club_Deportivo
                 *
                 ________________________________________________________
                 ____________ */
-                Principal.rol = Convert.ToString(tablaLogin.Rows[0][0]);
                 Principal.usuario = Convert.ToString(txtUsuario.Text);
                 Principal.Show(); // se llama al formulario principal
                 this.Hide(); // se oculta el formulario del login

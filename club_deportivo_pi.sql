@@ -16,6 +16,35 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `pago`
+--
+
+DROP TABLE IF EXISTS `pago`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `pago` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `fecha` datetime NOT NULL,
+  `tipoPago` varchar(50) NOT NULL,
+  `monto` decimal(10,2) NOT NULL,
+  `personaId` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `personaId` (`personaId`),
+  CONSTRAINT `pago_ibfk_1` FOREIGN KEY (`personaId`) REFERENCES `persona` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pago`
+--
+
+LOCK TABLES `pago` WRITE;
+/*!40000 ALTER TABLE `pago` DISABLE KEYS */;
+INSERT INTO `pago` VALUES (3,'2024-11-19 02:45:30','Efectivo',300.00,2),(4,'2024-11-19 02:51:58','Efectivo',33.00,2),(5,'2024-11-19 03:04:20','TC - 6 cutoas',400.00,2),(6,'2024-11-19 03:06:21','TC - 1 cuota',4.00,2);
+/*!40000 ALTER TABLE `pago` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `persona`
 --
 
@@ -31,9 +60,11 @@ CREATE TABLE `persona` (
   `contacto` varchar(50) DEFAULT NULL,
   `aptoFisico` tinyint(1) NOT NULL,
   `tipoCliente` enum('Socio','No Socio') NOT NULL DEFAULT 'No Socio',
+  `fechaVencimiento` date DEFAULT NULL,
+  `pago` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `documento` (`documento`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +73,7 @@ CREATE TABLE `persona` (
 
 LOCK TABLES `persona` WRITE;
 /*!40000 ALTER TABLE `persona` DISABLE KEYS */;
-INSERT INTO `persona` VALUES (1,'Carmen','Grilletta','Peru 1234','23234234','1112345678',0,'No Socio'),(2,'Juan','Salomon','Av 90 1234','123','12345678',1,'Socio');
+INSERT INTO `persona` VALUES (1,'Carmen','Grilletta','Peru 1234','23234234','1112345678',0,'No Socio','2024-11-20',0),(2,'Juan','Salomon','Av 90 1234','123','12345678',1,'Socio','2024-11-18',1),(3,'Clara','Lopez','Urquiza 345','11111111','333444',1,'Socio','2024-11-18',0);
 /*!40000 ALTER TABLE `persona` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -71,46 +102,6 @@ LOCK TABLES `usuarios` WRITE;
 INSERT INTO `usuarios` VALUES (1,'sole','1234'),(2,'usuario2','password2');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping routines for database 'club_deportivo_pi'
---
-/*!50003 DROP PROCEDURE IF EXISTS `IngresoLogin` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `IngresoLogin`(
-    IN Usu VARCHAR(20),
-    IN Pass VARCHAR(15)
-)
-BEGIN
-    DECLARE cuentaEncontrada INT;
-
-    -- Verificar si existe un usuario con ese nombre de usuario y contraseña
-    SELECT COUNT(*) INTO cuentaEncontrada
-    FROM usuarios
-    WHERE username = Usu
-    AND password = Pass;
-
-    -- Si encuentra una coincidencia
-    IF cuentaEncontrada > 0 THEN
-        SELECT 'Login exitoso' AS Mensaje;
-    ELSE
-        SELECT 'Login fallido' AS Mensaje;
-    END IF;
-    
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -121,4 +112,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-20 16:12:56
+-- Dump completed on 2024-11-19  9:59:30

@@ -17,12 +17,11 @@ namespace P.I._Club_Deportivo
             InitializeComponent();
         }
 
-        internal string rol;
         internal string usuario;
 
         private void FrmPrincipal_Load(object sender, EventArgs e)
         {
-            lblIngreso.Text = "USUARIO: " + usuario + " " + "(" + rol + ")";
+            lblIngreso.Text = "USUARIO: " + usuario;
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -35,6 +34,22 @@ namespace P.I._Club_Deportivo
             FrmInscripcion inscripcion = new FrmInscripcion();
 
             inscripcion.Show();
+            this.Hide();
+        }
+
+        private void btnSocios_Click(object sender, EventArgs e)
+        {
+            FrmSocios socios = new FrmSocios();
+
+            socios.Show();
+            this.Hide();
+        }
+
+        private void btnPago_Click(object sender, EventArgs e)
+        {
+            FrmPago pago = new FrmPago();
+
+            pago.Show();
             this.Hide();
         }
     }

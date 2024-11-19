@@ -59,9 +59,13 @@ namespace P.I._Club_Deportivo
                     return;
                 }
 
+                // Calcular la fecha de vencimiento
+                string tipoClienteVencimiento = cboTipoCliente.SelectedItem.ToString(); // Obtenemos el valor seleccionado del ComboBox
+                DateTime? fechaVencimiento = CalcularFechaVencimiento(tipoClienteVencimiento);
+                
                 // Insertar un nuevo registro
-                string query = "INSERT INTO persona (nombre, apellido, direccion, documento, contacto, aptoFisico, tipoCliente) " +
-                                "VALUES (@nombre, @apellido, @direccion, @documento, @contacto, @aptoFisico, @tipoCliente)";
+                string query = "INSERT INTO persona (nombre, apellido, direccion, documento, contacto, aptoFisico, tipoCliente, fechaVencimiento) " +
+                                "VALUES (@nombre, @apellido, @direccion, @documento, @contacto, @aptoFisico, @tipoCliente, @fechaVencimiento)";
 
                 MySqlCommand comando = new MySqlCommand(query, sqlCon);
                 comando.Parameters.AddWithValue("@nombre", nombre);
@@ -71,6 +75,7 @@ namespace P.I._Club_Deportivo
                 comando.Parameters.AddWithValue("@contacto", contacto);
                 comando.Parameters.AddWithValue("@aptoFisico", aptoFisico);
                 comando.Parameters.AddWithValue("@tipoCliente", tipoCliente);
+                comando.Parameters.AddWithValue("@fechaVencimiento", fechaVencimiento.HasValue ? (object)fechaVencimiento.Value.ToString("yyyy-MM-dd") : DBNull.Value);
 
                 int filasAfectadas = comando.ExecuteNonQuery();
 
@@ -98,7 +103,7 @@ namespace P.I._Club_Deportivo
                 }
             }
         }
-        
+
 
         // Método para limpiar los campos del formulario
         private void LimpiarCampos()
@@ -122,6 +127,24 @@ namespace P.I._Club_Deportivo
             FrmPrincipal principal = new FrmPrincipal();
             principal.Show();
             this.Hide();
+        }
+
+        private void FrmInscripcion_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private DateTime? CalcularFechaVencimiento(string tipoCuota)
+        {
+            if (tipoCuota == "Mensual")
+            {
+                // Seteo el vencimiento en un mes
+                return DateTime.Now.AddMonths(1);
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

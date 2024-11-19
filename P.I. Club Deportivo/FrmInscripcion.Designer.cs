@@ -263,6 +263,7 @@
             Name = "FrmInscripcion";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Inscripcion";
+            Load += FrmInscripcion_Load;
             ResumeLayout(false);
             PerformLayout();
         }
