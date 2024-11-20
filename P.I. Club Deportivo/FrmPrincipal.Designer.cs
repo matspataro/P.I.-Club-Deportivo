@@ -43,10 +43,9 @@
             // 
             btnInscripcion.BackColor = Color.WhiteSmoke;
             btnInscripcion.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point);
-            btnInscripcion.Location = new Point(160, 152);
-            btnInscripcion.Margin = new Padding(4, 5, 4, 5);
+            btnInscripcion.Location = new Point(112, 91);
             btnInscripcion.Name = "btnInscripcion";
-            btnInscripcion.Size = new Size(311, 130);
+            btnInscripcion.Size = new Size(218, 78);
             btnInscripcion.TabIndex = 1;
             btnInscripcion.Text = "INSCRIPCION";
             toolTipPrincipal.SetToolTip(btnInscripcion, "Registro de Socios y de Adherentes");
@@ -57,10 +56,9 @@
             // 
             btnCarnet.BackColor = Color.WhiteSmoke;
             btnCarnet.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point);
-            btnCarnet.Location = new Point(670, 152);
-            btnCarnet.Margin = new Padding(4, 5, 4, 5);
+            btnCarnet.Location = new Point(469, 91);
             btnCarnet.Name = "btnCarnet";
-            btnCarnet.Size = new Size(311, 130);
+            btnCarnet.Size = new Size(218, 78);
             btnCarnet.TabIndex = 2;
             btnCarnet.Text = "EMITIR CARNET";
             toolTipPrincipal.SetToolTip(btnCarnet, "Emisión de carnets para Socios");
@@ -71,10 +69,9 @@
             // 
             btnPago.BackColor = Color.WhiteSmoke;
             btnPago.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point);
-            btnPago.Location = new Point(160, 390);
-            btnPago.Margin = new Padding(4, 5, 4, 5);
+            btnPago.Location = new Point(112, 234);
             btnPago.Name = "btnPago";
-            btnPago.Size = new Size(311, 130);
+            btnPago.Size = new Size(218, 78);
             btnPago.TabIndex = 3;
             btnPago.Text = "PAGAR CUOTA/ABONO";
             toolTipPrincipal.SetToolTip(btnPago, "Pago de Couta Mensual o Abono Diario");
@@ -85,12 +82,11 @@
             // 
             btnSocios.BackColor = Color.WhiteSmoke;
             btnSocios.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point);
-            btnSocios.Location = new Point(670, 390);
-            btnSocios.Margin = new Padding(4, 5, 4, 5);
+            btnSocios.Location = new Point(469, 234);
             btnSocios.Name = "btnSocios";
-            btnSocios.Size = new Size(311, 130);
+            btnSocios.Size = new Size(218, 78);
             btnSocios.TabIndex = 4;
-            btnSocios.Text = "SOCIOS";
+            btnSocios.Text = "LISTADOS Y VENCIMIENTOS";
             toolTipPrincipal.SetToolTip(btnSocios, "Listado de Socios y de Socios en mora");
             btnSocios.UseVisualStyleBackColor = false;
             btnSocios.Click += btnSocios_Click;
@@ -99,29 +95,28 @@
             // 
             btnExit.BackColor = Color.WhiteSmoke;
             btnExit.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            btnExit.Location = new Point(971, 20);
-            btnExit.Margin = new Padding(4, 5, 4, 5);
+            btnExit.Location = new Point(680, 12);
             btnExit.Name = "btnExit";
-            btnExit.Size = new Size(154, 67);
+            btnExit.Size = new Size(108, 40);
             btnExit.TabIndex = 5;
             btnExit.Text = "SALIR";
+            toolTipPrincipal.SetToolTip(btnExit, "Presione para salir del sistema");
             btnExit.UseVisualStyleBackColor = false;
             btnExit.Click += btnExit_Click;
             // 
             // lblIngreso
             // 
             lblIngreso.AutoSize = true;
-            lblIngreso.Location = new Point(40, 20);
-            lblIngreso.Margin = new Padding(4, 0, 4, 0);
+            lblIngreso.Location = new Point(28, 12);
             lblIngreso.Name = "lblIngreso";
-            lblIngreso.Size = new Size(0, 25);
+            lblIngreso.Size = new Size(0, 15);
             lblIngreso.TabIndex = 6;
             // 
             // FrmPrincipal
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1143, 607);
+            ClientSize = new Size(800, 364);
             Controls.Add(lblIngreso);
             Controls.Add(btnExit);
             Controls.Add(btnSocios);
@@ -129,7 +124,6 @@
             Controls.Add(btnCarnet);
             Controls.Add(btnInscripcion);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Margin = new Padding(4, 5, 4, 5);
             Name = "FrmPrincipal";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Menu Inicio";

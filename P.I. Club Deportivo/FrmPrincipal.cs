@@ -39,7 +39,7 @@ namespace P.I._Club_Deportivo
 
         private void btnSocios_Click(object sender, EventArgs e)
         {
-            FrmSocios socios = new FrmSocios();
+            FrmListados socios = new FrmListados();
 
             socios.Show();
             this.Hide();

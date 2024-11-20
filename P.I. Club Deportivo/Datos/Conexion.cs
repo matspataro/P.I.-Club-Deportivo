@@ -16,14 +16,49 @@ namespace P.I._Club_Deportivo.Datos
         private string puerto;
         private string usuario;
         private string clave;
-        private static Conexion con = null;
+        private static Conexion? con = null;
         private Conexion()
         {
-            this.baseDatos = Environment.GetEnvironmentVariable("DB_NAME") ?? "club_deportivo_pi";
-            this.servidor = Environment.GetEnvironmentVariable("DB_SERVER") ?? "localhost";
-            this.puerto = Environment.GetEnvironmentVariable("DB_PORT") ?? "3306";
-            this.usuario = Environment.GetEnvironmentVariable("DB_USER") ?? "root";
-            this.clave = Environment.GetEnvironmentVariable("DB_PASSWORD") ?? "";
+            bool correcto = false;
+            int mensaje;
+
+            string T_servidor = "Servidor";
+            string T_puerto = "Puerto";
+            string T_usuario = "Usuario";
+            string T_clave = "Clave";
+
+            while (correcto != true) 
+            {
+                T_servidor = Microsoft.VisualBasic.Interaction.InputBox
+                ("ingrese servidor", "DATOS DE INSTALACIÓN MySQL");
+                T_puerto = Microsoft.VisualBasic.Interaction.InputBox
+                ("ingrese puerto", "DATOS DE INSTALACIÓN MySQL");
+                T_usuario = Microsoft.VisualBasic.Interaction.InputBox
+                ("ingrese usuario", "DATOS DE INSTALACIÓN MySQL");
+                T_clave = Microsoft.VisualBasic.Interaction.InputBox
+                ("ingrese clave", "DATOS DE INSTALACIÓN MySQL");
+
+                mensaje = (int)MessageBox.Show("su ingreso: SERVIDOR = " + 
+                    T_servidor + " PUERTO= " + T_puerto + " USUARIO: " + 
+                    T_usuario + " CLAVE: " + T_clave, "AVISO DEL SISTEMA", MessageBoxButtons.YesNo, 
+                    MessageBoxIcon.Question);
+
+                if (mensaje != 6) // el valor 6 corresponde al SI
+                {
+                    MessageBox.Show("INGRESE NUEVAMENTE LOS DATOS");
+                    correcto = false;
+                }
+                else
+                {
+                    correcto = true;
+                }
+            }
+
+            this.baseDatos = "club_deportivo_pi";
+            this.servidor = T_servidor; // "localhost";
+            this.puerto = T_puerto;     //"3306";
+            this.usuario = T_usuario;   // "root";
+            this.clave = T_clave;       // "";
         }
 
         // proceso de interacción

@@ -12,17 +12,17 @@ using System.Windows.Forms;
 
 namespace P.I._Club_Deportivo
 {
-    public partial class FrmSocios : Form
+    public partial class FrmListados : Form
     {
         bool esInicializado = false;
-        public FrmSocios()
+        public FrmListados()
         {
             InitializeComponent();
 
             // Agrego las opciones al ComboBox
-            cboListadoOpciones.Items.Add("Todos los socios");
-            cboListadoOpciones.Items.Add("No socios");
-            cboListadoOpciones.Items.Add("Vencen hoy");
+            cboListadoOpciones.Items.Add("Socios");
+            cboListadoOpciones.Items.Add("No Socios");
+            cboListadoOpciones.Items.Add("Vencimientos del día");
 
             //Por defecto selecciono los que vencen hoy
             cboListadoOpciones.SelectedIndex = 2;
