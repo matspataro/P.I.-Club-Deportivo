@@ -10,7 +10,6 @@ namespace P.I._Club_Deportivo.Datos
     public class Socio : Persona
     {
         public decimal ImporteCuota { get; set; }
-        public DateTime fechaVencimiento { get; set; }
 
         public DateTime CalcularVencimiento()
         {

@@ -23,6 +23,12 @@ namespace P.I._Club_Deportivo.Datos
         public bool EstaPago {  get; set; }
         public DateTime FechaVencimiento { get; set; }
 
+        public Persona()
+        {
+            // Establecer la fecha de vencimiento como la fecha actual por defecto para luego modificarla con el pago
+            FechaVencimiento = DateTime.Now;
+        }
+
 
         public virtual void Pagar(string tipoPago, decimal monto)
         {

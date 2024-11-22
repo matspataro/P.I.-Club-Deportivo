@@ -59,23 +59,50 @@ namespace P.I._Club_Deportivo
                     return;
                 }
 
-                // Calcular la fecha de vencimiento
-                string tipoClienteVencimiento = cboTipoCliente.SelectedItem.ToString(); // Obtenemos el valor seleccionado del ComboBox
-                DateTime? fechaVencimiento = CalcularFechaVencimiento(tipoClienteVencimiento);
-                
+                // Crear la instancia de la clase Persona (Socio o NoSocio)
+                Persona nuevaPersona;
+                if (tipoCliente == "Socio")
+                {
+                    nuevaPersona = new Socio
+                    {
+                        Nombre = nombre,
+                        Apellido = apellido,
+                        Documento = documento,
+                        Direccion = direccion,
+                        Contacto = contacto,
+                        AptoFisico = aptoFisico,
+                        EstaPago = false, 
+                        FechaVencimiento = CalcularFechaVencimiento(tipoCliente)
+                    };
+                }
+                else
+                {
+                    nuevaPersona = new NoSocio
+                    {
+                        Nombre = nombre,
+                        Apellido = apellido,
+                        Documento = documento,
+                        Direccion = direccion,
+                        Contacto = contacto,
+                        AptoFisico = aptoFisico,
+                        EstaPago = false,
+                        FechaVencimiento = DateTime.Now 
+                    };
+                }
+
                 // Insertar un nuevo registro
                 string query = "INSERT INTO persona (nombre, apellido, direccion, documento, contacto, aptoFisico, tipoCliente, fechaVencimiento) " +
                                 "VALUES (@nombre, @apellido, @direccion, @documento, @contacto, @aptoFisico, @tipoCliente, @fechaVencimiento)";
 
                 MySqlCommand comando = new MySqlCommand(query, sqlCon);
-                comando.Parameters.AddWithValue("@nombre", nombre);
-                comando.Parameters.AddWithValue("@apellido", apellido);
-                comando.Parameters.AddWithValue("@direccion", direccion);
-                comando.Parameters.AddWithValue("@documento", documento);
-                comando.Parameters.AddWithValue("@contacto", contacto);
-                comando.Parameters.AddWithValue("@aptoFisico", aptoFisico);
+                comando.Parameters.AddWithValue("@nombre", nuevaPersona.Nombre);
+                comando.Parameters.AddWithValue("@apellido", nuevaPersona.Apellido);
+                comando.Parameters.AddWithValue("@direccion", nuevaPersona.Direccion);
+                comando.Parameters.AddWithValue("@documento", nuevaPersona.Documento);
+                comando.Parameters.AddWithValue("@contacto", nuevaPersona.Contacto);
+                comando.Parameters.AddWithValue("@aptoFisico", nuevaPersona.AptoFisico);
                 comando.Parameters.AddWithValue("@tipoCliente", tipoCliente);
-                comando.Parameters.AddWithValue("@fechaVencimiento", fechaVencimiento.HasValue ? (object)fechaVencimiento.Value.ToString("yyyy-MM-dd") : DBNull.Value);
+                comando.Parameters.AddWithValue("@fechaVencimiento", nuevaPersona.FechaVencimiento);
 
                 int filasAfectadas = comando.ExecuteNonQuery();
 
@@ -134,16 +161,17 @@ namespace P.I._Club_Deportivo
 
         }
 
-        private DateTime? CalcularFechaVencimiento(string tipoCuota)
+        //Método para calcular la fecha de vencimiento según el tipo de Cliente
+        private DateTime CalcularFechaVencimiento(string tipoCuota)
         {
-            if (tipoCuota == "Mensual")
+            if (tipoCuota == "Socio")
             {
                 // Seteo el vencimiento en un mes
                 return DateTime.Now.AddMonths(1);
             }
             else
             {
-                return null;
+                return DateTime.Now;
             }
         }
     }

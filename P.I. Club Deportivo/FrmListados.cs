@@ -92,13 +92,13 @@ namespace P.I._Club_Deportivo
 
             switch (cboListadoOpciones.SelectedItem.ToString())
             {
-                case "Todos los socios":
+                case "Socios":
                     CargarTodosLosSocios();
                     break;
-                case "No socios":
+                case "No Socios":
                     CargarNoSocios();
                     break;
-                case "Vencen hoy":
+                case "Vencimientos del día":
                     CargarSociosConCuotaVencidaHoy();
                     break;
             }

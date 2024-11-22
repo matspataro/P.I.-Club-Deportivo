@@ -22,16 +22,23 @@ namespace P.I._Club_Deportivo
             }
 
             Persona persona = ObtenerPersonaPorDocumento(txtDocumento.Text);
-            this.idCliente = persona.id;
+            if (persona != null)
+            {
+                this.idCliente = persona.id;
 
-            // Muestro los valores en los txt
-            txtNombre.Text = persona.Nombre;
-            txtApellido.Text = persona.Apellido;
-            DateTime fechaVencimiento = persona.FechaVencimiento;
-            txtVencimiento.Text = fechaVencimiento.ToString("dd/MM/yyyy");
+                // Muestro los valores en los txt
+                txtNombre.Text = persona.Nombre;
+                txtApellido.Text = persona.Apellido;
+                DateTime fechaVencimiento = persona.FechaVencimiento;
+                txtVencimiento.Text = fechaVencimiento.ToString("dd/MM/yyyy");
 
-            txtEstado.Text = persona.EstaPago ? "Pagado" : "Pendiente";
-            txtEstado.ForeColor = persona.EstaPago ? Color.Green : Color.Red;
+                txtEstado.Text = persona.EstaPago ? "Pagado" : "Pendiente";
+                txtEstado.ForeColor = persona.EstaPago ? Color.Green : Color.Red;
+            }
+            else
+            {
+                MessageBox.Show("No se encontró la persona.");
+            }
 
         }
 

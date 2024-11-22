@@ -33,14 +33,15 @@
             cboListadoOpciones = new ComboBox();
             label1 = new Label();
             dgvSocios = new DataGridView();
-            conexionBindingSource1 = new BindingSource(components);
-            conexionBindingSource = new BindingSource(components);
             label2 = new Label();
             btnVolver = new Button();
             btnSalir = new Button();
+            toolTipInscripcion = new ToolTip(components);
+            conexionBindingSource = new BindingSource(components);
+            conexionBindingSource1 = new BindingSource(components);
             ((System.ComponentModel.ISupportInitialize)dgvSocios).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)conexionBindingSource1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)conexionBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)conexionBindingSource1).BeginInit();
             SuspendLayout();
             // 
             // cboListadoOpciones
@@ -78,14 +79,6 @@
             dgvSocios.Size = new Size(777, 231);
             dgvSocios.TabIndex = 2;
             // 
-            // conexionBindingSource1
-            // 
-            conexionBindingSource1.DataSource = typeof(Datos.Conexion);
-            // 
-            // conexionBindingSource
-            // 
-            conexionBindingSource.DataSource = typeof(Datos.Conexion);
-            // 
             // label2
             // 
             label2.AutoSize = true;
@@ -108,6 +101,7 @@
             btnVolver.Size = new Size(108, 40);
             btnVolver.TabIndex = 4;
             btnVolver.Text = "VOLVER";
+            toolTipInscripcion.SetToolTip(btnVolver, "Presione para volver al menú principal");
             btnVolver.UseVisualStyleBackColor = false;
             btnVolver.Click += btnVolver_Click_1;
             // 
@@ -121,8 +115,17 @@
             btnSalir.Size = new Size(108, 40);
             btnSalir.TabIndex = 5;
             btnSalir.Text = "SALIR";
+            toolTipInscripcion.SetToolTip(btnSalir, "Presione para salir del sistema");
             btnSalir.UseVisualStyleBackColor = false;
             btnSalir.Click += btnSalir_Click;
+            // 
+            // conexionBindingSource
+            // 
+            conexionBindingSource.DataSource = typeof(Datos.Conexion);
+            // 
+            // conexionBindingSource1
+            // 
+            conexionBindingSource1.DataSource = typeof(Datos.Conexion);
             // 
             // FrmListados
             // 
@@ -142,8 +145,8 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Listado de Socios";
             ((System.ComponentModel.ISupportInitialize)dgvSocios).EndInit();
-            ((System.ComponentModel.ISupportInitialize)conexionBindingSource1).EndInit();
             ((System.ComponentModel.ISupportInitialize)conexionBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)conexionBindingSource1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -153,10 +156,11 @@
         private ComboBox cboListadoOpciones;
         private Label label1;
         private DataGridView dgvSocios;
-        private BindingSource conexionBindingSource;
         private Label label2;
-        private BindingSource conexionBindingSource1;
         private Button btnVolver;
         private Button btnSalir;
+        private ToolTip toolTipInscripcion;
+        private BindingSource conexionBindingSource;
+        private BindingSource conexionBindingSource1;
     }
 }
